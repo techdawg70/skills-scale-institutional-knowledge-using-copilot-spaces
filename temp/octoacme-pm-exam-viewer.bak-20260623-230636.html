@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OctoAcme Project Management Knowledge Check</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f6f8fa; color: #24292f; }
+  h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  .subtitle { color: #57606a; margin-bottom: 24px; font-size: 0.9rem; }
+  .question-card { background: #fff; border: 1px solid #d0d7de; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; }
+  .question-num { font-size: 0.8rem; color: #57606a; margin-bottom: 4px; }
+  .stem { font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+  .options label { display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px; border-radius: 6px; cursor: pointer; margin-bottom: 4px; }
+  .options label:hover { background: #f6f8fa; }
+  .options input[type="radio"] { margin-top: 3px; flex-shrink: 0; }
+  .check-btn { background: #0969da; color: #fff; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; margin-top: 12px; font-size: 0.9rem; }
+  .check-btn:hover { background: #0860ca; }
+  .feedback { margin-top: 10px; padding: 10px 14px; border-radius: 6px; font-size: 0.9rem; display: none; }
+  .feedback.correct { background: #dafbe1; color: #1a7f37; border: 1px solid #82e09b; }
+  .feedback.incorrect { background: #fff1e5; color: #bc4c00; border: 1px solid #ffa05a; }
+  .score-bar { background: #fff; border: 1px solid #d0d7de; border-radius: 8px; padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; }
+  .score-label { font-size: 0.95rem; color: #57606a; }
+  .score-value { font-size: 1.4rem; font-weight: 700; color: #0969da; }
+  .reset-btn { background: #f6f8fa; border: 1px solid #d0d7de; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; margin-left: auto; }
+  .reset-btn:hover { background: #e8ecf0; }
+</style>
+</head>
+<body>
+<h1>OctoAcme Project Management Knowledge Check</h1>
+<p class="subtitle">50-question practice exam covering OctoAcme PM processes, roles, planning, execution, release, and retrospectives.</p>
+
+<div class="score-bar">
+  <span class="score-label">Score:</span>
+  <span class="score-value" id="score">0 / 50</span>
+  <button class="reset-btn" onclick="resetExam()">Reset</button>
+</div>
+
+<div id="questions"></div>
+
+<script>
+const DATA = {"title":"OctoAcme Project Management Knowledge Check","slug":"octoacme-pm-exam","version":"1.0","bank":[{"id":1,"type":"mc","stem":"Who is responsible for coordinating delivery, schedules, risk, and communications in an OctoAcme project?","options":{"A":"Project Manager (PM)","B":"Product Manager (PdM)","C":"QA/Testing Lead","D":"Developer"},"answer":"A","explanation":"According to the OctoAcme overview, the Project Manager (PM) coordinates delivery, schedules, risk, and communications."},{"id":2,"type":"mc","stem":"Which principle states that OctoAcme should prioritize customer value and usability?","options":{"A":"Customer-first","B":"Clear ownership","C":"Data-informed decisions","D":"Iterative delivery"},"answer":"A","explanation":"The customer-first principle states that OctoAcme should prioritize customer value and usability."},{"id":3,"type":"mc","stem":"What is the first phase of the OctoAcme project lifecycle?","options":{"A":"Initiation","B":"Execution","C":"Release","D":"Planning"},"answer":"A","explanation":"The OctoAcme lifecycle starts with Initiation: problem statement, stakeholders, high-level timeline."},{"id":4,"type":"mc","stem":"How often does the OctoAcme delivery team hold standups?","options":{"A":"Twice-weekly (or as agreed)","B":"Weekly","C":"Monthly","D":"Daily"},"answer":"A","explanation":"OctoAcme holds twice-weekly standups for the delivery team, or as agreed."},{"id":5,"type":"mc","stem":"Which artifact captures lessons learned and next steps at the end of a project?","options":{"A":"Retrospective notes and action items","B":"Risk Register","C":"Project Charter","D":"Sprint/Iteration Backlog"},"answer":"A","explanation":"Retrospective notes and action items capture lessons learned and next steps."},{"id":6,"type":"mc","stem":"What does PdM stand for in OctoAcme's core roles?","options":{"A":"Product Delivery Manager","B":"Product Manager","C":"Project Director Manager","D":"Process Development Manager"},"answer":"B","explanation":"PdM stands for Product Manager, who defines outcomes, prioritizes backlog, and measures success."},{"id":7,"type":"mc","stem":"According to OctoAcme principles, how should decisions be made?","options":{"A":"Data-informed: measure impact and iterate based on evidence","B":"By consensus of the full team","C":"By the Project Manager alone","D":"Based on prior project patterns"},"answer":"A","explanation":"OctoAcme's data-informed decisions principle states decisions should be measured and iterated based on evidence."},{"id":8,"type":"mc","stem":"How frequently are stakeholder updates provided at OctoAcme?","options":{"A":"Monthly","B":"Bi-weekly","C":"Daily","D":"Weekly"},"answer":"A","explanation":"OctoAcme provides monthly stakeholder updates."},{"id":9,"type":"mc","stem":"Which OctoAcme principle encourages feedback and learning?","options":{"A":"Psychological safety","B":"Clear ownership","C":"Customer-first","D":"Iterative delivery"},"answer":"A","explanation":"Psychological safety encourages feedback and learning in OctoAcme projects."},{"id":10,"type":"mc","stem":"What artifact defines the scope applied to all cross-functional projects at OctoAcme?","options":{"A":"The project's scope applies to projects that deliver product features, services, or integrations","B":"The Risk Register","C":"The Acceptance Criteria","D":"The Sprint Backlog"},"answer":"A","explanation":"The OctoAcme overview states its scope applies to all cross-functional projects that deliver product features, services, or integrations."},{"id":11,"type":"mc","stem":"When should the OctoAcme Project Initiation Guide be used?","options":{"A":"Whenever a new project idea or feature proposal is ready to be explored","B":"After planning is complete","C":"Only at the start of each fiscal year","D":"When a project is in execution phase"},"answer":"A","explanation":"The initiation guide should be used whenever a new project idea or feature proposal is ready to be explored."},{"id":12,"type":"mc","stem":"What is included in the Project One-pager?","options":{"A":"Problem statement, Objective/Goal (SMART), Success metrics","B":"Retrospective action items","C":"Deployment checklists","D":"Sprint backlog items"},"answer":"A","explanation":"The Project One-pager includes problem statement, objective/goal (SMART), and success metrics."},{"id":13,"type":"mc","stem":"Which is NOT listed as a minimum deliverable during OctoAcme project initiation?","options":{"A":"Sprint velocity report","B":"Stakeholder list and communication plan","C":"Project One-pager","D":"Initial risk list"},"answer":"A","explanation":"Sprint velocity report is not a minimum initiation deliverable; it belongs to execution/tracking."},{"id":14,"type":"mc","stem":"What does the initial risk list capture during OctoAcme project initiation?","options":{"A":"Quick risks and dependencies","B":"Detailed mitigation plans","C":"Sprint capacity","D":"Acceptance criteria"},"answer":"A","explanation":"The initiation phase captures a quick risks and dependencies list as part of minimum deliverables."},{"id":15,"type":"mc","stem":"What should the success metrics in a Project One-pager be?","options":{"A":"A budget estimate","B":"Measurable criteria that indicate the project has achieved its goal","C":"A list of team members","D":"A list of features to build"},"answer":"B","explanation":"Success metrics are measurable criteria indicating the project has achieved its goal."},{"id":16,"type":"mc","stem":"What is the final goal of the OctoAcme project initiation phase?","options":{"A":"Merge all pull requests","B":"Complete sprint planning","C":"Decide go/no-go for planning","D":"Deploy to production"},"answer":"C","explanation":"The initiation phase ends with a go/no-go decision for planning."},{"id":17,"type":"mc","stem":"Which field in the Project One-pager template captures the proposed team?","options":{"A":"Proposed team / roles","B":"Risk register","C":"Sprint velocity","D":"Deployment checklist"},"answer":"A","explanation":"The Project One-pager template includes 'Proposed team / roles' to capture resource needs."},{"id":18,"type":"mc","stem":"What does 'SMART' stand for in the context of a Project One-pager objective?","options":{"A":"Specific, Measurable, Achievable, Relevant, Time-bound","B":"Structured, Monitored, Assigned, Reviewed, Tracked","C":"Simple, Manageable, Actionable, Realistic, Timely","D":"Strategic, Meaningful, Actionable, Responsive, Transparent"},"answer":"A","explanation":"SMART goals are Specific, Measurable, Achievable, Relevant, and Time-bound."},{"id":19,"type":"mc","stem":"What does the OctoAcme initiation phase require before authorizing work?","options":{"A":"Confirmation of business need and measurable outcome","B":"A finalized retrospective","C":"A completed sprint","D":"An approved deployment pipeline"},"answer":"A","explanation":"Initiation requires confirming business need and measurable outcome before proceeding."},{"id":20,"type":"mc","stem":"Where should OctoAcme project documentation be kept according to the overview?","options":{"A":"The Project Charter should be updated in the project repo","B":"In email threads","C":"In a shared spreadsheet","D":"On the company intranet only"},"answer":"A","explanation":"The OctoAcme overview states to keep the Project Charter updated in the project repo."},{"id":21,"type":"mc","stem":"What is the first activity in OctoAcme project planning?","options":{"A":"Kickoff meeting with stakeholders and delivery team","B":"Estimating story points","C":"Creating the sprint backlog","D":"Defining the Definition of Done"},"answer":"A","explanation":"The first planning activity is a kickoff meeting with stakeholders and the delivery team."},{"id":22,"type":"mc","stem":"Which estimation approach does OctoAcme use for scope?","options":{"A":"Exact hour estimates","B":"T-shirt sizing or story points","C":"Fibonacci sequence only","D":"Budget-based estimation"},"answer":"B","explanation":"OctoAcme uses T-shirt sizing or story points for scope estimation."},{"id":23,"type":"mc","stem":"What does DoD stand for in OctoAcme project planning?","options":{"A":"Definition of Done","B":"Design of Development","C":"Date of Deployment","D":"Definition of Delivery"},"answer":"A","explanation":"DoD stands for Definition of Done, which specifies completion criteria for work items."},{"id":24,"type":"mc","stem":"What should be included in a Backlog Item according to OctoAcme templates?","options":{"A":"Title, Description, Acceptance criteria, Priority, Estimate, Owner, Related docs/links","B":"Title and budget allocation","C":"Description and deployment date","D":"Only title and estimate"},"answer":"A","explanation":"A backlog item should include title, description, acceptance criteria, priority, estimate, owner, and related docs/links."},{"id":25,"type":"mc","stem":"What should be identified and integrated into planning alongside features?","options":{"A":"Dependencies and integration points","B":"Vendor contracts","C":"Marketing materials","D":"Sales pipeline data"},"answer":"A","explanation":"OctoAcme planning requires identifying dependencies and integration points."},{"id":26,"type":"mc","stem":"What defines which items are pulled into a sprint during sprint planning?","options":{"A":"Items that meet DoD and have clear acceptance criteria","B":"Items assigned by the Project Manager","C":"Items with the highest story points","D":"Any items in the backlog"},"answer":"A","explanation":"Sprint items must meet the Definition of Done and have clear acceptance criteria."},{"id":27,"type":"mc","stem":"What is the purpose of a release plan in OctoAcme planning?","options":{"A":"Replace the risk register","B":"Track daily standup attendance","C":"Assign budget codes","D":"Align timelines, releases, and responsibilities"},"answer":"D","explanation":"A release plan aligns timelines, releases, and responsibilities."},{"id":28,"type":"mc","stem":"What type of increments does OctoAcme aim to deliver?","options":{"A":"Shippable increments","B":"Annual release bundles","C":"Large feature batches","D":"Architecture-only deliverables"},"answer":"A","explanation":"OctoAcme breaks work into shippable increments for planning."},{"id":29,"type":"mc","stem":"Which planning artifact maps milestones to the release schedule?","options":{"A":"Release plan and milestone map","B":"Retrospective notes","C":"Sprint burndown chart","D":"Risk register"},"answer":"A","explanation":"The release plan and milestone map align milestones to the release schedule."},{"id":30,"type":"mc","stem":"During sprint planning, what is the recommended approach to planning sessions?","options":{"A":"Timebox planning to agreed sprint length","B":"Delegate planning to individual engineers","C":"Use the previous sprint plan as a template","D":"Plan until all questions are answered"},"answer":"A","explanation":"Sprint planning should be timeboxed to the agreed sprint length."},{"id":31,"type":"mc","stem":"How long are OctoAcme daily standups?","options":{"A":"15 minutes","B":"30 minutes","C":"45 minutes","D":"1 hour"},"answer":"A","explanation":"OctoAcme daily standups are 15 minutes, focused on progress, blockers, and dependencies."},{"id":32,"type":"mc","stem":"What is the maximum recommended PR size at OctoAcme?","options":{"A":"No limit specified","B":"400 lines when possible","C":"1000 lines","D":"100 lines"},"answer":"B","explanation":"OctoAcme recommends PRs of 400 lines or fewer when possible."},{"id":33,"type":"mc","stem":"What must be included in a PR description according to OctoAcme workflow?","options":{"A":"Issue link and acceptance criteria","B":"Developer's name and hours spent","C":"Sprint number only","D":"Budget code"},"answer":"A","explanation":"PR descriptions must include an issue link and acceptance criteria."},{"id":34,"type":"mc","stem":"How many approvals are required before merging a PR at OctoAcme?","options":{"A":"At least one (or team-defined policy)","B":"None required","C":"Three minimum","D":"Two minimum"},"answer":"A","explanation":"OctoAcme requires at least one approval before merging, or as defined by team policy."},{"id":35,"type":"mc","stem":"What project board columns does OctoAcme use?","options":{"A":"Backlog, Ready, In Progress, In Review, QA, Done","B":"Planned, Active, Released","C":"To Do, In Progress, Done","D":"Open, Closed, Archived"},"answer":"A","explanation":"OctoAcme uses the columns: Backlog, Ready, In Progress, In Review, QA, Done."},{"id":36,"type":"mc","stem":"What metrics does OctoAcme track during execution?","options":{"A":"Headcount and salary","B":"Customer satisfaction surveys","C":"Velocity and burndown","D":"Code coverage only"},"answer":"C","explanation":"OctoAcme tracks velocity and burndown as execution metrics."},{"id":37,"type":"mc","stem":"When is manual QA required during OctoAcme execution?","options":{"A":"For feature acceptance when needed","B":"Only for major releases","C":"Only for patch releases","D":"For every commit"},"answer":"A","explanation":"Manual QA is required for feature acceptance when needed."},{"id":38,"type":"mc","stem":"What CI activities must pass before requesting a PR review?","options":{"A":"Automated tests and linting","B":"Deployment to production","C":"Documentation update","D":"Manual code review by senior engineer"},"answer":"A","explanation":"Automated tests and linting must pass in CI before requesting PR review."},{"id":39,"type":"mc","stem":"What type of tests does OctoAcme require for critical flows before release?","options":{"A":"End-to-end smoke tests","B":"Manual user acceptance tests only","C":"Load tests only","D":"Code coverage reports"},"answer":"A","explanation":"OctoAcme requires end-to-end smoke tests for critical flows before release."},{"id":40,"type":"mc","stem":"What does the weekly delivery sync focus on?","options":{"A":"Progress, updates, and flagged risks","B":"Team performance reviews","C":"Customer demos only","D":"Budget adjustments"},"answer":"A","explanation":"The weekly delivery sync focuses on progress, updates, and flagged risks."},{"id":41,"type":"mc","stem":"What type of OctoAcme release addresses critical production issues?","options":{"A":"Minor release","B":"Patch release","C":"Major release","D":"Feature release"},"answer":"B","explanation":"A patch release is a hotfix addressing critical production issues."},{"id":42,"type":"mc","stem":"What must be drafted before an OctoAcme release?","options":{"A":"Release notes","B":"Board meeting minutes","C":"Annual reports","D":"Customer invoices"},"answer":"A","explanation":"Release notes must be drafted as part of pre-release requirements."},{"id":43,"type":"mc","stem":"What should be documented as part of release preparation?","options":{"A":"Rollback / mitigation plan","B":"Employee performance reviews","C":"Marketing campaign plan","D":"Budget forecasts"},"answer":"A","explanation":"A rollback/mitigation plan must be documented as part of pre-release requirements."},{"id":44,"type":"mc","stem":"What is the preferred deployment approach at OctoAcme?","options":{"A":"Scheduled maintenance windows only","B":"Third-party deployment services","C":"Manual deployment by developers","D":"Automated pipeline"},"answer":"D","explanation":"OctoAcme prefers automated pipeline deployments."},{"id":45,"type":"mc","stem":"What should happen if a deployment fails at OctoAcme?","options":{"A":"Trigger incident response, notify on-call, and rollback if necessary","B":"Redeploy immediately without review","C":"Continue deployment and monitor","D":"Schedule a retrospective and wait"},"answer":"A","explanation":"OctoAcme's incident playbook requires triggering incident response, notifying on-call, and rolling back if necessary."},{"id":46,"type":"mc","stem":"How long is an OctoAcme retrospective timeboxed?","options":{"A":"45\u201375 minutes depending on team size","B":"15\u201330 minutes","C":"2\u20133 hours","D":"1 hour exactly"},"answer":"A","explanation":"Retrospectives are timeboxed to 45\u201375 minutes depending on team size."},{"id":47,"type":"mc","stem":"How many top action items should be prioritized in a retrospective?","options":{"A":"2\u20133 top action items","B":"5\u20137 action items","C":"10 action items","D":"All action items identified"},"answer":"A","explanation":"OctoAcme recommends prioritizing 2\u20133 top action items to avoid overload."},{"id":48,"type":"mc","stem":"Which retrospective format encourages candor?","options":{"A":"Written executive summary","B":"Manager-led 1:1 reviews","C":"Anonymous idea board","D":"Open discussion in front of all stakeholders"},"answer":"C","explanation":"OctoAcme recommends using an anonymous idea board if needed to encourage candor."},{"id":49,"type":"mc","stem":"What levels are used to assess risk impact and likelihood in the OctoAcme risk register?","options":{"A":"High, Med, Low","B":"Critical, Moderate, Minor","C":"1\u20135 numeric scale","D":"Red, Amber, Green"},"answer":"A","explanation":"The OctoAcme risk register uses High/Med/Low for both impact and likelihood."},{"id":50,"type":"mc","stem":"Where should stakeholder status updates be published according to OctoAcme communication guidelines?","options":{"A":"A single source of truth (project README or release doc)","B":"In the daily standup notes","C":"Only in the sprint board","D":"Multiple email threads"},"answer":"A","explanation":"OctoAcme recommends a single source of truth such as the project README or release doc for status."}]};
+
+let answered = {};
+
+function renderQuestions() {
+  const container = document.getElementById('questions');
+  container.innerHTML = '';
+  DATA.bank.forEach(q => {
+    const div = document.createElement('div');
+    div.className = 'question-card';
+    div.id = 'q' + q.id;
+
+    const letters = Object.keys(q.options);
+    const optHtml = letters.map(l =>
+      `<label><input type="radio" name="q${q.id}" value="${l}" onchange="clearFeedback(${q.id})"> <strong>${l}.</strong> ${escHtml(q.options[l])}</label>`
+    ).join('');
+
+    div.innerHTML = `
+      <div class="question-num">Question ${q.id}</div>
+      <div class="stem">${escHtml(q.stem)}</div>
+      <div class="options">${optHtml}</div>
+      <button class="check-btn" onclick="checkAnswer(${q.id})">Check Answer</button>
+      <div class="feedback" id="fb${q.id}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function escHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function checkAnswer(id) {
+  const q = DATA.bank.find(x => x.id === id);
+  const sel = document.querySelector(`input[name="q${id}"]:checked`);
+  const fb = document.getElementById('fb' + id);
+  if (!sel) { fb.style.display='block'; fb.className='feedback incorrect'; fb.textContent='Please select an answer.'; return; }
+  const prev = answered[id];
+  answered[id] = sel.value === q.answer;
+  fb.style.display = 'block';
+  if (answered[id]) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = `✅ Correct! ${escHtml(q.explanation)}`;
+  } else {
+    fb.className = 'feedback incorrect';
+    fb.innerHTML = `❌ Incorrect. The correct answer is <strong>${q.answer}</strong>. ${escHtml(q.explanation)}`;
+  }
+  updateScore();
+}
+
+function clearFeedback(id) {
+  document.getElementById('fb' + id).style.display = 'none';
+}
+
+function updateScore() {
+  const correct = Object.values(answered).filter(Boolean).length;
+  const attempted = Object.keys(answered).length;
+  document.getElementById('score').textContent = `${correct} / ${attempted} attempted`;
+}
+
+function resetExam() {
+  answered = {};
+  document.getElementById('score').textContent = '0 / 50';
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+  document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+}
+
+renderQuestions();
+</script>
+</body>
+</html>
